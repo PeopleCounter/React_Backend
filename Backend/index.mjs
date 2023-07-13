@@ -5,32 +5,42 @@ import cors from 'cors'
 import crypto from 'crypto'
 import session from "express-session";
 import Count from "./DB_Schema/Count.mjs";
+import calculate_busiest_hour from "./automation/bussiest_hour.mjs";
+import CreateDocument from "./automation/startup.mjs"
+
 const app = express()
 app.listen(3000,()=>{console.log(`App is running at port 3000`);})
 app.use(cors())
 app.use(express.json())
 app.use(session({secret:process.env.SECRET,resave:false,saveUninitialized:true}))
 
+//calculate_busiest_hour()
+CreateDocument()
+
+app.get('/calculate/busiest_hour',async(req,res)=>{
+    let date = new Date()
+    let date_month = String(date.getDate())+"-"+String(date.getMonth())
+    let result = await Count.findOne({date:date_month})
+    res.json({busiest_hour:result.busiest_hour})
+    res.status(200)
+})
+
+
 
 app.post('/log/flow',async(req,res)=>
 {
-    console.log(req);
     let date = new Date()
+    console.log(req);
+    let date_month = String(date.getDate())+"-"+String(date.getMonth())
     let in_people = req.body.in
     let out_people = req.body.out
-    let date_month = String(date.getDate())+"-"+String(date.getMonth())
-    let res_count = await Count.findOne({date:date_month})
-    if(res_count)
+    let res_count = await Count.updateOne({date:{$eq:date_month}},{in:in_people,out:out_people})
+    // let res_count = await Count.findOne({date:date_month})
+    if(res_count.matchedCount > 0)
     {
         res_count.in = in_people
         res_count.out = out_people
-        let update = await Count.updateOne({date:{$eq:date_month}},{in:in_people,out:out_people})
-        console.log(update);
-    }
-
-    else
-    {
-        res_count = await Count.insertMany({date:date_month,in:in_people,out:out_people})
+        console.log(res_count);
     }
 
     res.json({date:date_month,in:in_people,out:out_people})
@@ -44,7 +54,6 @@ app.post("/auth/logout",(req,res)=>
     if(csrf === req.session.csrf)
     {
         req.session.destroy((err)=>{console.log(err)})
-        console.log(req.session);
         res.json({"message":"Logged Out"})
         res.status(200)
     }

@@ -1,0 +1,60 @@
+.container
+{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.container1
+{
+    height: 130px;
+    width: 350px;
+    margin-right: 50px;
+    margin-top: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.2);
+}
+.bottom
+{
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    margin-left: 5%;
+}
+.busiest-hour,.busiesthour
+{
+    height: 50px;
+
+   margin-right: 50px;
+   padding: 20px;
+   border-radius: 20px;
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.2);
+}
+
+.button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button button
+{
+    background-color: orange;
+    margin-top: 2%;
+    width: 50%;
+    padding: 0.7%;
+    border-radius: 10px;
+    border: 2px solid orange;
+}
+
+.icon-grid
+{
+    position: relative;
+    top:-7px;
+
+    display: grid;
+    height: 85px;
+    grid-template-columns: 2fr 1fr;
+}
