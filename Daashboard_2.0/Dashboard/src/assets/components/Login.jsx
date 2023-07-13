@@ -35,7 +35,7 @@ function Login(props) {
               sessionStorage.setItem("csrf",csrf)
               sessionStorage.setItem("email",data["Email"])
               sessionStorage.setItem("name",data["Name"])
-              window.location="/"
+              window.location="/Home"
             }
 
             else{

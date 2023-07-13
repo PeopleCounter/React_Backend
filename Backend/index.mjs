@@ -7,6 +7,23 @@ import session from "express-session";
 import Count from "./DB_Schema/Count.mjs";
 import calculate_busiest_hour from "./automation/bussiest_hour.mjs";
 import CreateDocument from "./automation/startup.mjs"
+import { Server } from "socket.io";
+
+const WebSocket = new Server(4001,{
+    cors:{
+    origin:"http://localhost:5173",
+    methods:["GET","POST"]
+    }
+})
+WebSocket.on("connection",async(socket)=>{
+
+    let date = new Date()
+    let date_month = String(date.getDate())+"-"+String(date.getMonth())
+    let result = await Count.findOne({date:date_month})
+    console.log("Socket Connected !!");
+    socket.emit("Update",{in:result.in,out:result.out})
+})
+
 
 const app = express()
 app.listen(3000,()=>{console.log(`App is running at port 3000`);})
@@ -30,7 +47,6 @@ app.get('/calculate/busiest_hour',async(req,res)=>{
 app.post('/log/flow',async(req,res)=>
 {
     let date = new Date()
-    console.log(req);
     let date_month = String(date.getDate())+"-"+String(date.getMonth())
     let in_people = req.body.in
     let out_people = req.body.out
@@ -38,6 +54,7 @@ app.post('/log/flow',async(req,res)=>
     // let res_count = await Count.findOne({date:date_month})
     if(res_count.matchedCount > 0)
     {
+        WebSocket.emit("Update",{in:in_people,out:out_people})
         res_count.in = in_people
         res_count.out = out_people
         console.log(res_count);

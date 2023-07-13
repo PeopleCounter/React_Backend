@@ -1,11 +1,16 @@
+/* eslint-disable no-unused-vars */
 import '../css/Home.css'
 
-function Home()
+import PropTypes from 'prop-types';
+
+function Home(props)
 {
-    let ok=true;
+    let count = false;
+    
+
     return(
         <>
-            {!sessionStorage.getItem("csrf")?window.location="/authenticate":ok}
+            
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
 
             <div className="container">
@@ -17,24 +22,25 @@ function Home()
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
                             <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{props.counts.in}</h1>
                         </div>
                     </div>
                 </div>
 
                 <div className="container1 total-exit">
                 <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                        Exits
                     </div>
 
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            <i className="fa-solid fa-right-from-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{props.counts.out}</h1>
                         </div>
                     </div>
 
@@ -42,12 +48,12 @@ function Home()
 
                 <div className="container1 occupancy-ratio">
                 <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                        Occupancy Ratio
                     </div>
 
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            <i className="fa-solid fa-percent" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
                             <h1>386</h1>
@@ -58,12 +64,12 @@ function Home()
 
                 <div className="container1 student-entry">
                 <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                        Student Entry
                     </div>
 
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            <i className="fa-solid fa-book-open-reader" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
                             <h1>386</h1>
@@ -74,12 +80,12 @@ function Home()
 
                 <div className="container1 faculty-entry">
                 <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                        Faculty Entry
                     </div>
 
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            <i className="fas fa-chalkboard-teacher" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
                             <h1>386</h1>
@@ -90,12 +96,12 @@ function Home()
 
                 <div className="container1 unknown-entry">
                 <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                        Unknown Entry
                     </div>
 
                     <div className="icon-grid">
                         <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            <i className="fa-solid fa-user" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
                             <h1>386</h1>
@@ -127,4 +133,7 @@ function Home()
     )
 }
 
+Home.propTypes = {
+    counts : PropTypes.object
+}
 export default Home
