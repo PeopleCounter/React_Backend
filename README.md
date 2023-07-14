@@ -19,7 +19,7 @@
 <br><br>
 
 <p align="center">
-<a href="https://nodejs.org/en"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Node.js_logo_2015.svg/1280px-Node.js_logo_2015.svg.png" height="70"/></a><a href=""><img src = "https://repository-images.githubusercontent.com/958314/195c4a80-7da7-11e9-9a33-54d9fffac84f" height="70"/></a><a href="https://react.dev/"><img src="https://repository-images.githubusercontent.com/410214337/070f2aba-d9d6-4699-b887-9a0f29015b1b" height="70"/></a><a href="https://www.python.org/"><img src="https://www.python.org/static/img/python-logo.png" height="70"/></a><a href="https://opencv.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg_version.svg" height="70"/></a>
+<a href="https://nodejs.org/en"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Node.js_logo_2015.svg/1280px-Node.js_logo_2015.svg.png" height="70"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><img src = "https://repository-images.githubusercontent.com/958314/195c4a80-7da7-11e9-9a33-54d9fffac84f" height="70"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://react.dev/"><img src="https://repository-images.githubusercontent.com/410214337/070f2aba-d9d6-4699-b887-9a0f29015b1b" height="70"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.python.org/"><img src="https://www.python.org/static/img/python-logo.png" height="70"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://opencv.org/"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg_version.svg" height="70"/></a>
 </p>
 
 
