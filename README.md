@@ -13,7 +13,9 @@
 <br>
 <br>
 <br>
+
 ## ***List of Dependencies :***
+
 <br><br>
 <div style="display:flex;">
 
@@ -23,8 +25,8 @@
 <dl><dd></dd></dl>
 
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
-	<circle cx="128" cy="128" r="114" stroke="#FFF" stroke-width="20" fill="none" />
-	<path d="M97.637 121.69c27.327-22.326 54.058-45.426 81.98-67.097-14.646 22.505-29.708 44.711-44.354 67.215-12.562.06-25.123.06-37.626-.119zM120.737 134.132c12.621 0 25.183 0 37.745.179-27.505 22.206-54.117 45.484-82.099 67.096 14.646-22.505 29.708-44.77 44.354-67.275z" fill="#FFF"/>
+ <circle cx="128" cy="128" r="114" stroke="#FFF" stroke-width="20" fill="none" />
+ <path d="M97.637 121.69c27.327-22.326 54.058-45.426 81.98-67.097-14.646 22.505-29.708 44.711-44.354 67.215-12.562.06-25.123.06-37.626-.119zM120.737 134.132c12.621 0 25.183 0 37.745.179-27.505 22.206-54.117 45.484-82.099 67.096 14.646-22.505 29.708-44.77 44.354-67.275z" fill="#FFF"/>
 </svg>
 <dl><dd></dd></dl>
 
@@ -40,6 +42,3 @@
 <a href="https://react.dev/"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/OpenCV_Logo_with_text_svg_version.svg" width="15%"/></a>
 
 </div>
-
-
-
