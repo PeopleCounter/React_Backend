@@ -14,6 +14,7 @@ function App()
   })
 
   const[counts,set_counts] = useState({"in":0,"out":0})
+  const[counts_face,set_counts_face] = useState({"student":0,"teacher":0,"unknown":0})
   useEffect(()=>
   {
       function check_counts(value)
@@ -21,10 +22,17 @@ function App()
         set_counts(value)
       }
 
+      function check_counts_face(value)
+      {
+        set_counts_face(value)
+      }
+
       Socket.on("Update",check_counts)
+      Socket.on("Update_FaceDetection",check_counts_face)
 
       return(
         ()=>{
+          console.log("Switching off connection");
           Socket.off("Update",check_counts)
         }
       )
@@ -38,7 +46,7 @@ function App()
         <BootstrapErrors notifications={notifications} control = {set_notifications}/>
         <Routes>
           
-          <Route path="/Home" element={<Home counts = {counts}/>}/>
+          <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
           <Route path="/" element={<Login notifications={notifications} control = {set_notifications}/>}/>
           {/* <Route path="/Logout" element={<Logout CSRF = {credentials} func = {set_credentials}/>}/> */}
         </Routes>

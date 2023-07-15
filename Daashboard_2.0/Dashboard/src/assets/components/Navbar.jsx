@@ -32,7 +32,7 @@ function Navbar()
                     </div>
 
                     <div className="name" style={{marginLeft:"9px"}}>                            
-                           <Link to={"/"}>People Counter</Link> 
+                           <Link to={"/Home"}>People Counter</Link> 
                     </div>
 
                 </div>

@@ -41,6 +41,6 @@
 7. Every 5 seconds a function is run that checks if the total number of people comming in and going out is same as the number of people comming in and going out in the previous 5 seconds. If they are same don't make a POST request to the server
 8. In case they are not same a POST request is made to the server and the new count is stored in the mongo DB database. The server is connected to the client via ```Web Socket```. As a result the new counts are immediately reflected on the web browser resulting in less time delay between updating and showing the update to the user
 9. We have also used ```multi threading``` in the people counting code. The code to send POST request run on a different thread than the one used for counting. Thus counting isn't affected by the POST request made every 5 seconds
-10. On the client side we have made use of ```useEffect hook``` to connected the websocket running on port 4001. We have made use of the ```useState hook``` to update the count displayed in the browser 
+10. On the client side we have made use of ```useEffect hook``` to connect to the websocket running on port 4001. We have made use of the ```useState hook``` to update the count displayed in the browser 
 
 

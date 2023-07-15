@@ -56,7 +56,7 @@ function Home(props)
                             <i className="fa-solid fa-percent" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{((props.counts.in-props.counts.out)/props.counts.in)*100?props.counts.in!=0:0}%</h1>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@ function Home(props)
                             <i className="fa-solid fa-book-open-reader" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{Math.floor(props.counts_face.student)}</h1>
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@ function Home(props)
                             <i className="fas fa-chalkboard-teacher" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{Math.floor(props.counts_face.teacher)}</h1>
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@ function Home(props)
                             <i className="fa-solid fa-user" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
                         <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>386</h1>
+                            <h1>{Math.floor(props.counts_face.unknown)}</h1>
                         </div>
                     </div>
 
@@ -134,6 +134,7 @@ function Home(props)
 }
 
 Home.propTypes = {
-    counts : PropTypes.object
+    counts : PropTypes.object,
+    counts_face : PropTypes.object
 }
 export default Home

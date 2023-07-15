@@ -9,7 +9,7 @@ async function CreateDocument()
     let res = await Count.findOne({date:date_month})
     if(!res)
     {
-        let update = Count.insertMany({date:date_month,in:0,out:0,busiest_hour:""})
+        let update = Count.insertMany({date:date_month,in:0,out:0,busiest_hour:"",student:0,teacher:0,unknown:0})
     }
 }
 

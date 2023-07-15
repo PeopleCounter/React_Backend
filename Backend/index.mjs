@@ -9,6 +9,8 @@ import calculate_busiest_hour from "./automation/bussiest_hour.mjs";
 import CreateDocument from "./automation/startup.mjs"
 import { Server } from "socket.io";
 
+CreateDocument()
+
 const WebSocket = new Server(4001,{
     cors:{
     origin:"http://localhost:5173",
@@ -22,6 +24,7 @@ WebSocket.on("connection",async(socket)=>{
     let result = await Count.findOne({date:date_month})
     console.log("Socket Connected !!");
     socket.emit("Update",{in:result.in,out:result.out})
+    socket.emit("Update_FaceDetection",{teacher:result.teacher,student:result.student,unknown:result.unknown})
 })
 
 
@@ -32,7 +35,7 @@ app.use(express.json())
 app.use(session({secret:process.env.SECRET,resave:false,saveUninitialized:true}))
 
 //calculate_busiest_hour()
-CreateDocument()
+
 
 app.get('/calculate/busiest_hour',async(req,res)=>{
     let date = new Date()
@@ -42,7 +45,23 @@ app.get('/calculate/busiest_hour',async(req,res)=>{
     res.status(200)
 })
 
+app.post('/log/FaceDetection',async(req,res)=>{
+    let date = new Date()
+    let date_month = String(date.getDate())+"-"+String(date.getMonth())
+    let student= req.body.Student
+    let teacher = req.body.Teacher
+    let unknown = req.body.Unknown
+    
+    let res_count = await Count.updateOne({date:{$eq:date_month}},{student:student,teacher:teacher,unknown:unknown})
+    console.log({student:student,teacher:teacher,unknown:unknown})
+    if(res_count.matchedCount>0)
+    {
+        WebSocket.emit("Update_FaceDetection",{student:student,teacher:teacher,unknown:unknown})
+    }
 
+    res.json({student:student,teacher:teacher,unknown:unknown})
+    res.status(200)
+})
 
 app.post('/log/flow',async(req,res)=>
 {
@@ -71,6 +90,7 @@ app.post("/auth/logout",(req,res)=>
     if(csrf === req.session.csrf)
     {
         req.session.destroy((err)=>{console.log(err)})
+    
         res.json({"message":"Logged Out"})
         res.status(200)
     }
