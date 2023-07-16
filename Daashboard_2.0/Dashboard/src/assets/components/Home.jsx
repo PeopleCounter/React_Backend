@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { Link } from 'react-router-dom';
 import '../css/Home.css'
 
 import PropTypes from 'prop-types';
@@ -61,57 +62,62 @@ function Home(props)
                     </div>
 
                 </div>
+                <Link to={'/LogDetails/Student'}>
+                        <div className="container1 student-entry">
+                        <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
+                                Student Entry
+                            </div>
 
-                <div className="container1 student-entry">
-                <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Student Entry
-                    </div>
+                            <div className="icon-grid" >
+                                <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
+                                    <i className="fa-solid fa-book-open-reader" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                                </div>
+                                <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
+                                    <h1>{Math.floor(props.counts_face.student)}</h1>
+                                </div>
+                            </div>
 
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-book-open-reader" style={{fontSize:"65px",marginLeft:"7%"}}></i>
                         </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{Math.floor(props.counts_face.student)}</h1>
+                </Link>
+                <Link to={'/LogDetails/Teacher'}>
+                    <div className="container1 faculty-entry">
+                    <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
+                            Faculty Entry
                         </div>
-                    </div>
 
-                </div>
-
-                <div className="container1 faculty-entry">
-                <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Faculty Entry
-                    </div>
-
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fas fa-chalkboard-teacher" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                        <div className="icon-grid">
+                            <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
+                                <i className="fas fa-chalkboard-teacher" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                            </div>
+                            <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
+                                <h1>{Math.floor(props.counts_face.teacher)}</h1>
+                            </div>
                         </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{Math.floor(props.counts_face.teacher)}</h1>
-                        </div>
+
                     </div>
+                </Link>
 
-                </div>
-
-                <div className="container1 unknown-entry">
-                <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Unknown Entry
-                    </div>
-
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-user" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                <Link to={'/LogDetails/unknown'}>
+                    <div className="container1 unknown-entry">
+                        <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
+                                Unknown Entry
                         </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{Math.floor(props.counts_face.unknown)}</h1>
-                        </div>
-                    </div>
 
-                </div>
-                
+                            <div className="icon-grid">
+                                <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
+                                    <i className="fa-solid fa-user" style={{fontSize:"65px",marginLeft:"7%"}}></i>
+                                </div>
+                                <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
+                                    <h1>{Math.floor(props.counts_face.unknown)}</h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    
+                    </Link>
             </div>
-
+            
+            
             <div className="bottom">
 
                     <div className="busiest-hour">

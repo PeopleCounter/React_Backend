@@ -8,6 +8,8 @@ import Count from "./DB_Schema/Count.mjs";
 import calculate_busiest_hour from "./automation/bussiest_hour.mjs";
 import CreateDocument from "./automation/startup.mjs"
 import { Server } from "socket.io";
+import fs from 'fs'
+import csv from 'fast-csv'
 
 CreateDocument()
 
@@ -36,7 +38,44 @@ app.use(session({secret:process.env.SECRET,resave:false,saveUninitialized:true})
 
 //calculate_busiest_hour()
 
+app.get('/logs/general/:id',(req,res)=>{
+    const file_path = "e:/Desktop/RaspberryPi/Dashboard/React_Backend/Backend/Python/FaceRecognition/Record.csv"
+    const results = []
+    const parser = csv.parse({headers:true})
+    console.log(req.params.id);
+    const filterCriterion = {
+        column:"Category",
+        value:req.params.id
+    }
+    fs.createReadStream(file_path).pipe(parser).on('data',(row)=>{
+        if(row[filterCriterion.column] === filterCriterion.value)
+        { 
+            results.push(row)
+        }
+    }).on('end',()=>{
+        res.json(results)
+        res.status(200)
+    }).on('error',(err)=>{
+        console.log(err)
+        res.status(500)
+    })
+       
+})
 
+
+app.get('/logs/CSV',(req,res)=>{
+    const file_path = "e:/Desktop/RaspberryPi/Dashboard/React_Backend/Backend/Python/FaceRecognition/Record.csv"
+    const results = []
+    const parser = csv.parse({headers:true})
+    fs.createReadStream(file_path).pipe(parser).on('data',(row)=>{results.push(row)}).on('end',()=>{
+        res.json(results)
+        res.status(200)
+    }).on('error',(err)=>{
+        console.log(err)
+        res.status(500)
+    })
+       
+})
 app.get('/calculate/busiest_hour',async(req,res)=>{
     let date = new Date()
     let date_month = String(date.getDate())+"-"+String(date.getMonth())

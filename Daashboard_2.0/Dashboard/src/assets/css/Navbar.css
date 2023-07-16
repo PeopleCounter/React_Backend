@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&display=swap');
 
 a{
+    text-decoration: none;
+    color: black;
+}
+nav a{
     font-family: 'Inter', sans-serif;
     font-style: italic;
     font-weight: 600;
@@ -9,7 +13,7 @@ a{
    color: black;
 }
 
-a:hover
+nav a:hover
 {
     text-decoration: underline;
 }

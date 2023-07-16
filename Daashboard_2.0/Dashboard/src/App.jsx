@@ -5,6 +5,7 @@ import Login from "./assets/components/Login"
 import { useEffect, useState } from "react"
 import BootstrapErrors from "./assets/components/bootstrapErrors";
 // import Logout from "./assets/components/Logout"
+import LogDetails from "./assets/components/LogDetails"
 import Socket from "./assets/js/Socket"
 function App()
 {
@@ -34,6 +35,7 @@ function App()
         ()=>{
           console.log("Switching off connection");
           Socket.off("Update",check_counts)
+          Socket.off("Update_FaceDetection",check_counts_face)
         }
       )
   },[]
@@ -48,6 +50,7 @@ function App()
           
           <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
           <Route path="/" element={<Login notifications={notifications} control = {set_notifications}/>}/>
+          <Route path="/LogDetails/:id" element={<LogDetails/>}/>
           {/* <Route path="/Logout" element={<Logout CSRF = {credentials} func = {set_credentials}/>}/> */}
         </Routes>
       </BrowserRouter>
