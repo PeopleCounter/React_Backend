@@ -289,7 +289,8 @@ if __name__ == "__main__":
 #%%
 import requests
 import threading
-
+from collections import defaultdict
+from ObjectDetection.ObjectDetection import check_folder,ObjectDetection
 global quit1 
 quit1 = False
 
@@ -354,46 +355,52 @@ def Initigrate_Camera():
     global quit1
     data = pickle.loads(open("embed.pickle", "rb").read())
     df = check_file()
+    #check_folder()
     
     cap = cv2.VideoCapture(0)
    
     
     while(cap.isOpened):
         success,frame = cap.read()
-        boxes = face_recognition.face_locations(frame,model="hog")
-        embeddings = face_recognition.face_encodings(frame,boxes)
-        print(boxes)
-        names = []
-        
-        for embedding in embeddings:
-              name = "unknown" 
-              res = face_recognition.compare_faces(data["embeddings"],embedding,tolerance=0.4)
-              faces = defaultdict(int)
-              if(True in res):
-                   matched = [i for i,b in enumerate(res) if b]
-                   for j in matched:
-                    faces[data["names"][j]] += 1
-              
-                   name = max(faces,key=faces.get)
-              names.append(name)
-        
-        
-        
-        for ((top,right,bottom,left),name) in zip(boxes,names):
+        p=True
+        #frame,p = ObjectDetection(frame)
+        if p:
+            boxes = face_recognition.face_locations(frame,model="hog")
+            embeddings = face_recognition.face_encodings(frame,boxes)
+            names = []
             
-              
-              if(name == "unknown"):
-                temp["Unknown"]+=1
-                df.write(f"unknown,unknown,{time.asctime()}\n")
-              elif(name[-2:]=="_S"):
-                temp["Student"]+=1
-                df.write(f"{name},Student,{time.asctime()}\n")
-              else:
-                  temp["Teacher"]+=1
-                  df.write(f"{name},Teacher,{time.asctime()}\n")
-              y = top - 15 if top - 15 > 15 else top + 15
-              cv2.rectangle(frame,(left,top),(right,bottom),(255,0,0),2)
-              cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,.8, (0, 255, 255), 2)
+            for embedding in embeddings:
+                name = "unknown" 
+                res = face_recognition.compare_faces(data["embeddings"],embedding,tolerance=0.4)
+                faces = defaultdict(int)
+                if(True in res):
+                    matched = [i for i,b in enumerate(res) if b]
+                    for j in matched:
+                        faces[data["names"][j]] += 1
+                
+                    name = max(faces,key=faces.get)
+                names.append(name)
+            
+            
+            
+            for ((top,right,bottom,left),name) in zip(boxes,names):
+                
+                
+                if(name == "unknown"):
+                    temp["Unknown"]+=1
+                    df.write(f"unknown,unknown,{time.asctime()}\n")
+                    df.flush()
+                elif(name[-2:]=="_S"):
+                    temp["Student"]+=1
+                    df.write(f"{name},Student,{time.asctime()}\n")
+                    df.flush()
+                else:
+                    temp["Teacher"]+=1
+                    df.write(f"{name},Teacher,{time.asctime()}\n")
+                    df.flush()
+                y = top - 15 if top - 15 > 15 else top + 15
+                cv2.rectangle(frame,(left,top),(right,bottom),(255,0,0),2)
+                cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,.8, (0, 255, 255), 2)
             
         cv2.imshow("Face recognition",frame)
         if(cv2.waitKey(1) & 0XFF == ord('q')):

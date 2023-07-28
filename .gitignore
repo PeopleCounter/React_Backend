@@ -4,3 +4,10 @@ Daashboard_2.0/Dashboard/node_modules
 Backend/Python/PeopleCounter/TestVideo.avi
 Backend/Python/FaceRecognition/Train
 .DS_Store
+Backend/Python/FaceRecognition/yolov8m.pt
+Backend/Python/FaceRecognition/ObjectDetection/yolov8m.pt
+Backend/Python/FaceRecognition/ObjectDetection/__pycache__/__init__.cpython-311.pyc
+Backend/Python/FaceRecognition/ObjectDetection/yolov8n.pt
+Backend/Python/FaceRecognition/ObjectDetection/__pycache__/ObjectDetection.cpython-311.pyc
+
+Daashboard_2.0/Dashboard/src/assets/Images_Record

@@ -1,6 +1,6 @@
 
 //import axios from 'axios';
-
+import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 import '../css/Login.css';
 //import { redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -71,15 +71,29 @@ function Login(props) {
             <label htmlFor="password">Enter Password</label>
             <input type="password" name="password" />
           </div>
-          <input
-            type="submit"
-            value="submit"
-            style={{ width: '20%', marginLeft: '10%', marginTop: '4%' }}
-          />
+          <div className="submit" style={{display:'flex'}}>
+              <input
+                type="submit"
+                value="submit"
+                style={{ width: '20%', marginLeft: '10%',marginRight:'2vh'}}
+              />
+            
+            <GoogleOAuthProvider clientId="149620841284-1eebrqih8ge705pdt2ieubsea0astvav.apps.googleusercontent.com" >
+              
+                  <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    console.log(credentialResponse);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />
+            </GoogleOAuthProvider>
+            </div>
         </div>
       </form>
     </>
-  );
+  )
 }
 
 Login.propTypes={
