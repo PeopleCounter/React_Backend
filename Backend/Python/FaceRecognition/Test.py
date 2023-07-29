@@ -85,8 +85,6 @@ def check_exist(name,timestamp):
 
         time_difference = datetime_obj1 - datetime_obj2
 
-
-        # Print the time difference
         print("Time difference:", time_difference)
         time_difference = time_difference.total_seconds()
         if(math.floor(time_difference)>=30):

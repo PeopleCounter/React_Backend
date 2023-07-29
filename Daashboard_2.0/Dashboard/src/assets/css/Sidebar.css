@@ -1,0 +1,10 @@
+.wrapper-bar{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+.sideBar{
+    height: 100vh;
+    background-color: #202938;
+    margin-left: -2vh;
+
+}

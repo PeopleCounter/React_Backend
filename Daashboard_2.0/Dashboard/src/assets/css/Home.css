@@ -1,67 +1,89 @@
-.container
-{
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&display=swap');
+.home{
+    font-family: 'Inter', sans-serif;
+    
+}
+.home{
+    background-color: #f1f2f5;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    margin-top: 5%;
-    margin-left: 5%;
+    grid-template-rows: 2fr 1.5fr;
+}
+.cell-card{
+    margin-right: 5px;
+    margin-top: 5px;
+    background-color: #fff;
 }
 
-.container1
-{
-    height: 130px;
-    width: 350px;
-    margin-right: 50px;
-    margin-top: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.2);
-    transition: all 1s;
+.graphs{
+    background-color: #fff;
+
 }
-.bottom
-{
-    margin-top: 40px;
+.cards{
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    margin-left: 5%;
+    grid-template-columns: 1fr 1fr 0.6fr 0.6fr;
+    margin-top: 7%;
+    
 }
-.busiest-hour,.busiesthour
-{
-    height: 50px;
+.label1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
 
-   margin-right: 50px;
-   padding: 20px;
-   border-radius: 20px;
-   box-shadow: 0 8px 16px 0 rgba(0, 0, 0,0.2);
-   transition: all 1s;
+}
+.image1,.data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.graphs{
+    width: 98.15%;
+    height: 83%;
+    position: relative;
+    top:20px;
+    margin-left:20px;   
+}
+.info1{
+    display: grid;
+    grid-template-columns: 0.7fr 1fr;
+}
+.cell-card{
+    display: grid;
+    grid-template-rows: 2fr 1fr;
 }
 
-.button
-{
+.card{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.title{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.button button
-{
-    background-color: orange;
-    margin-top: 2%;
-    width: 50%;
-    padding: 0.7%;
-    border-radius: 10px;
-    border: 2px solid orange;
+.hour{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.icon-grid
-{
-    position: relative;
-    top:-7px;
-
+.busy2{
     display: grid;
-    height: 85px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 0.5fr 1fr;
+    background-color: #4cb051;
+    font-size: 25px;
+    
 }
+.busy{
+    display: grid;
+    grid-template-rows: 1fr 0.5fr 1fr;
+    background-color: #2196f3;
+    margin-left: -7px;
+    margin-right: 10px;
+    font-size: 25px;
 
-.container1:hover,.busiest-hour:hover,.busiesthour:hover
-{
-   box-shadow: none;
+
 }

@@ -7,6 +7,7 @@ import BootstrapErrors from "./assets/components/bootstrapErrors";
 // import Logout from "./assets/components/Logout"
 import LogDetails from "./assets/components/LogDetails"
 import Socket from "./assets/js/Socket"
+import Sidebar from "./assets/components/Sidebar";
 function App()
 {
   const [notifications,set_notifications] = useState({
@@ -47,11 +48,13 @@ function App()
         <Navbar />
         <BootstrapErrors notifications={notifications} control = {set_notifications}/>
         <Routes>
-          
-          <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
           <Route path="/" element={<Login notifications={notifications} control = {set_notifications}/>}/>
-          <Route path="/LogDetails/:id" element={<LogDetails/>}/>
-          {/* <Route path="/Logout" element={<Logout CSRF = {credentials} func = {set_credentials}/>}/> */}
+            <Route element={<Sidebar/>}>
+              <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
+              <Route path="/LogDetails/:id" element={<LogDetails/>}/>
+            {/* <Route path="/Logout" element={<Logout CSRF = {credentials} func = {set_credentials}/>}/> */}
+            </Route>
+
         </Routes>
       </BrowserRouter>
     

@@ -12,7 +12,7 @@ import fs from 'fs'
 import csv from 'fast-csv'
 
 CreateDocument()
-
+const DATE_MAPPING = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 const WebSocket = new Server(4001,{
     cors:{
     origin:"http://localhost:5173",
@@ -37,6 +37,18 @@ app.use(express.json())
 app.use(session({secret:process.env.SECRET,resave:false,saveUninitialized:true}))
 
 //calculate_busiest_hour()
+
+app.get('/dates/getDates',async(req,res)=>{
+    let resut = await Count.find()
+    resut.forEach((element)=>{
+        let build_date = element['date'].split('-')
+        build_date = "2023-"+ String(parseInt(build_date[1])+1) +"-"+build_date[0]
+        let cur_date = new Date(build_date)
+        element['date'] = DATE_MAPPING [cur_date.getDay()]
+
+    })
+    return res.status(200).json({result:resut})
+})
 
 app.get('/logs/general/:id',(req,res)=>{
     const file_path = "e:/Desktop/RaspberryPi/Dashboard/React_Backend/Backend/Python/FaceRecognition/Record.csv"

@@ -1,139 +1,182 @@
 /* eslint-disable no-unused-vars */
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import '../css/Home.css'
-
+import * as d3 from 'd3'
 import PropTypes from 'prop-types';
 
 function Home(props)
 {
     let count = false;
     
+    useEffect(()=>{
+        let padding = 50
+        async function getDate(){
+        let new_res = []
+        let result = await fetch('http://localhost:3000/dates/getDates',{
+            headers:{"Content-Type":"application/json"},
+            method:"GET",
+        }).then(async(result)=>{
+                    return await result.json()
+                }
+            )
+
+        result.result.forEach((element)=>{
+            new_res.push({Day:element.date,in:element.in})
+        })
+        let height = document.getElementById("graphs").clientHeight
+        let width = document.getElementById("graphs").clientWidth
+        if (!d3.select("#svg").size()) {
+            d3.select("#graphs")
+              .append("svg")
+              .attr("width", width)
+              .attr("height", height)
+              .attr("id", "svg");
+          }
+        
+        const XScale = d3.scalePoint().domain(new_res.map((element)=>element.Day))
+        .range([(0+padding),(width-padding)])
+        console.log(XScale("Saturday"),XScale("Friday"))
+        
+        const YScale = d3.scaleLinear().domain([0,d3.max(new_res,function(d){
+            return d.in
+        })]).range([(height-padding),(0+padding)])
+
+        
+
+        const line = d3.line().x((d)=> XScale(d.Day)).y((d)=>YScale(d.in)).curve(d3.curveMonotoneX)
+        let path_graph = line(new_res)
+        if(!d3.select("#path").size()){
+            let xAxis = d3.axisBottom(XScale)
+            let yAxis = d3.axisLeft(YScale)
+        d3.select("#svg")
+        .append("path").attr("id","path").attr("d",`${path_graph}`).attr("stroke","red").attr("stroke-width","5").attr("fill","none")
+        d3.select("#svg").append("g").attr("transform",`translate(0,${height-20})`).attr("id","xaxis").call(xAxis)
+        d3.select("#svg").append("g").attr("transform",`translate(${40},0)`). attr("id","yaxis").call(yAxis)
+
+        
+        }
+
+
+    }
+    getDate()
+    
+    },[])
 
     return(
         <>
-            
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+            <div className="home">
+                <div className="cards">
+                
+                    <div className="card">
+                        <div className="cell-card in">
+                            <div className="info1">   
+                                <div className="image1"><i className="fa-solid fa-right-to-bracket" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                                <div className="data">
+                                    <b style={{fontSize:"30px"}}>{props.counts.in}</b>
+                                </div>
+                            </div>
 
-            <div className="container">
-                <div className="container1 total-entries">
-                    <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Entries
+                            <div className="label1">
+                                Total Entries
+                            </div>
+
+                        </div>
+                        <div className="cell-card out">
+                                <div className="info1">
+                                    <div className="image1"><i className="fa-solid fa-right-from-bracket" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                                    <div className="data">
+                                        <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                                    </div>
+                                </div>
+                                <div className="label1">
+                                    Total Entries
+                                </div>
+                        </div>
+                        <div className="cell-card occupancy-ratio">
+                            <div className="info1">
+                                <div className="image1"><i className="fa-solid fa-percent" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                                <div className="data">
+                                    <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                                </div>
+                        
+                            </div>
+
+                            <div className="label1">
+                                Occupancy Ratio
+                            </div>
+                        </div>
+                        <div className="cell-card todo"></div>
+                    </div>
+                    <div className="card">
+                    <div className="cell-card in">
+                        <div className="info1">
+                            <div className="image1"><i className="fa-solid fa-book-open-reader" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                            <div className="data">
+                                <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                            </div>
+                        </div>
+                        <div className="label1">
+                            Student Entries
+                        </div>
+                    </div>
+                        <div className="cell-card out">
+                            <div className="info1">
+                                    <div className="image1"><i className="fas fa-chalkboard-teacher" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                                    <div className="data">
+                                        <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                                    </div>
+                            </div>
+                            <div className="label1">
+                                Faculty Entry
+                            </div>
+                        </div>
+                        <div className="cell-card occupancy-ratio">
+                            <div className="info1">
+                                <div className="image1"><i className="fa-solid fa-user" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
+                                    <div className="data">
+                                        <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                                    </div>
+                            </div>
+
+                            <div className="label1">
+                                Unknown Entries
+                            </div>
+                        </div>
+                        <div className="cell-card todo"></div>
                     </div>
 
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-to-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                            
+                    <div className="busy" style={{color:"#fff"}}>
+                        <div className="title">
+                            <p >Busiest Hour </p>
                         </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{props.counts.in}</h1>
+                        <div className="graph" style={{display:'flex',justifyContent:'center',alignItems:'center',fontSize:'50px'}}>
+                        <i className="fa-solid fa-clock"></i>
+                        </div>
+                        <div className="hour">
+                            <p>10:00 AM</p>
                         </div>
                     </div>
+                    <div className="busy2" style={{color:"#fff"}}>
+                    <div className="title">
+                            <p >Busiest Day </p>
+                        </div>
+                        
+                        <div className="graph" style={{display:'flex',justifyContent:'center',alignItems:'center',fontSize:'50px'}}>
+                            <i className="fa-solid fa-calendar-days"></i> 
+                        </div>
+
+                        <div className="hour">
+                            <p>Thursday</p>
+                        </div>
+                    </div>
+                              
                 </div>
+                <div className="graphs" id="graphs"></div>
 
-                <div className="container1 total-exit">
-                <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Exits
-                    </div>
-
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-right-from-bracket" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                        </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{props.counts.out}</h1>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="container1 occupancy-ratio">
-                <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                        Occupancy Ratio
-                    </div>
-
-                    <div className="icon-grid">
-                        <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                            <i className="fa-solid fa-percent" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                        </div>
-                        <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                            <h1>{((props.counts.in-props.counts.out)/props.counts.in)*100?props.counts.in!=0:0}%</h1>
-                        </div>
-                    </div>
-
-                </div>
-                <Link to={'/LogDetails/Student'}>
-                        <div className="container1 student-entry">
-                        <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                                Student Entry
-                            </div>
-
-                            <div className="icon-grid" >
-                                <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                                    <i className="fa-solid fa-book-open-reader" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                                </div>
-                                <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                                    <h1>{Math.floor(props.counts_face.student)}</h1>
-                                </div>
-                            </div>
-
-                        </div>
-                </Link>
-                <Link to={'/LogDetails/Teacher'}>
-                    <div className="container1 faculty-entry">
-                    <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                            Faculty Entry
-                        </div>
-
-                        <div className="icon-grid">
-                            <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                                <i className="fas fa-chalkboard-teacher" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                            </div>
-                            <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                                <h1>{Math.floor(props.counts_face.teacher)}</h1>
-                            </div>
-                        </div>
-
-                    </div>
-                </Link>
-
-                <Link to={'/LogDetails/unknown'}>
-                    <div className="container1 unknown-entry">
-                        <div className="header" style={{display:'flex',justifyContent:"center",fontSize:"25px",marginTop:"10px"}}>
-                                Unknown Entry
-                        </div>
-
-                            <div className="icon-grid">
-                                <div className="icon" style={{display:'flex',alignItems:'center',marginBottom:"65px"}}>
-                                    <i className="fa-solid fa-user" style={{fontSize:"65px",marginLeft:"7%"}}></i>
-                                </div>
-                                <div className="text" style={{display:'flex',alignItems:'center',justifyContent:'center',marginRight:"30px",marginBottom:"65px"}}>
-                                    <h1>{Math.floor(props.counts_face.unknown)}</h1>
-                                </div>
-                            </div>
-
-                        </div>
-                    
-                    </Link>
             </div>
-            
-            
-            <div className="bottom">
-
-                    <div className="busiest-hour">
-
-                    </div>
-                    <div className="busiesthour">
-
-                    </div>
-            </div>
-
-            <div className="button">
-                <button>View Graphs</button>
-            </div>
-            
-            
-        
+    
         
         </>
     )
