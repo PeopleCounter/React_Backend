@@ -10,6 +10,7 @@ import CreateDocument from "./automation/startup.mjs"
 import { Server } from "socket.io";
 import fs from 'fs'
 import csv from 'fast-csv'
+import GuestEntries from "./DB_Schema/GuestEntries.mjs";
 
 CreateDocument()
 const DATE_MAPPING = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
@@ -192,5 +193,12 @@ app.post("/auth/login",async(req,res)=>{
     
 })
 
+app.get('/logs/getGuestUsers',async(req,res)=>{
+
+        let result = await GuestEntries.find()
+        console.log(result);
+        res.status(200).json(result)
+
+})
 
 

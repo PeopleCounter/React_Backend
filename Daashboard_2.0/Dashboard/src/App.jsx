@@ -8,6 +8,7 @@ import BootstrapErrors from "./assets/components/bootstrapErrors";
 import LogDetails from "./assets/components/LogDetails"
 import Socket from "./assets/js/Socket"
 import Sidebar from "./assets/components/Sidebar";
+import GuestEntries from "./assets/components/GuestEntries";
 function App()
 {
   const [notifications,set_notifications] = useState({
@@ -52,7 +53,8 @@ function App()
             <Route element={<Sidebar/>}>
               <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
               <Route path="/LogDetails/:id" element={<LogDetails/>}/>
-            {/* <Route path="/Logout" element={<Logout CSRF = {credentials} func = {set_credentials}/>}/> */}
+              <Route path="/GuestEntries" element={<GuestEntries/>}/>
+            
             </Route>
 
         </Routes>

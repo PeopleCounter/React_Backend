@@ -1,13 +1,29 @@
 /* eslint-disable no-unused-vars */
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import '../css/Home.css'
-import * as d3 from 'd3'
+import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend,CategoryScale,LinearScale,PointElement,LineElement } from "chart.js";
+import { useRef } from 'react';
+import { useState } from 'react';
 
 function Home(props)
 {
     let count = false;
+    
+    ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,LinearScale,PointElement,LineElement);
+
+    // const[Days,set_days] = useState([])
+    // const[values,set_values] = useState([])
+    // const[height1,set_height]  = useState(0)
+    // const[width1,set_width1]  = useState(0)
+
+    const [graph_state,set_graph_state] = useState({
+        Days:[],
+        values:[],
+        height1:0,
+        width1:0
+    })
     
     useEffect(()=>{
         let padding = 50
@@ -26,46 +42,19 @@ function Home(props)
         })
         let height = document.getElementById("graphs").clientHeight
         let width = document.getElementById("graphs").clientWidth
-        if (!d3.select("#svg").size()) {
-            d3.select("#graphs")
-              .append("svg")
-              .attr("width", width)
-              .attr("height", height)
-              .attr("id", "svg");
-          }
-        
-        const XScale = d3.scalePoint().domain(new_res.map((element)=>element.Day))
-        .range([(0+padding),(width-padding)])
-        console.log(XScale("Saturday"),XScale("Friday"))
-        
-        const YScale = d3.scaleLinear().domain([0,d3.max(new_res,function(d){
-            return d.in
-        })]).range([(height-padding),(0+padding)])
+        let Days = new_res.map((element)=>element.Day)
+        let values = new_res.map((element)=>element.in)
 
-        
-
-        const line = d3.line().x((d)=> XScale(d.Day)).y((d)=>YScale(d.in)).curve(d3.curveMonotoneX)
-        let path_graph = line(new_res)
-        if(!d3.select("#path").size()){
-            let xAxis = d3.axisBottom(XScale)
-            let yAxis = d3.axisLeft(YScale)
-        d3.select("#svg")
-        .append("path").attr("id","path").attr("d",`${path_graph}`).attr("stroke","red").attr("stroke-width","5").attr("fill","none")
-        d3.select("#svg").append("g").attr("transform",`translate(0,${height-20})`).attr("id","xaxis").call(xAxis)
-        d3.select("#svg").append("g").attr("transform",`translate(${40},0)`). attr("id","yaxis").call(yAxis)
-
-        
-        }
-
-
+        set_graph_state((state)=>({...state,Days:Days,height1:height,width1:width,values:values}))
     }
     getDate()
     
     },[])
 
+    
+
     return(
         <>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
             <div className="home">
                 <div className="cards">
                 
@@ -91,7 +80,7 @@ function Home(props)
                                     </div>
                                 </div>
                                 <div className="label1">
-                                    Total Entries
+                                    Total Exits
                                 </div>
                         </div>
                         <div className="cell-card occupancy-ratio">
@@ -129,14 +118,14 @@ function Home(props)
                                     </div>
                             </div>
                             <div className="label1">
-                                Faculty Entry
+                                Faculty Entries
                             </div>
                         </div>
                         <div className="cell-card occupancy-ratio">
                             <div className="info1">
                                 <div className="image1"><i className="fa-solid fa-user" style={{fontSize:"50px",marginLeft:"19%"}}></i></div>
                                     <div className="data">
-                                        <b style={{fontSize:"30px"}}>{props.counts.out}</b>
+                                        <b style={{fontSize:"30px"}}></b>
                                     </div>
                             </div>
 
@@ -144,7 +133,7 @@ function Home(props)
                                 Unknown Entries
                             </div>
                         </div>
-                        <div className="cell-card todo"></div>
+                        <div className="cell-card todo">{graph_state.width1}</div>
                     </div>
 
                     <div className="busy" style={{color:"#fff"}}>
@@ -173,7 +162,27 @@ function Home(props)
                     </div>
                               
                 </div>
-                <div className="graphs" id="graphs"></div>
+                <div className="graphs" id="graphs">
+                <Line
+                    datasetIdKey='id'
+                    width={graph_state.width1}
+                    height={graph_state.height1}
+                    data={{
+                        labels:graph_state.Days,
+                        datasets: [
+                        {
+                            id: 1,
+                            label: 'Number of entries',
+                            data: graph_state.values,
+                            borderColor: '#36A2EB',
+                            backgroundColor: '#9BD0F5',
+                            
+                        }
+                        
+                        ],
+                    }}
+                />
+                </div>
 
             </div>
     
