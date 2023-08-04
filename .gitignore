@@ -11,3 +11,14 @@ Backend/Python/FaceRecognition/ObjectDetection/yolov8n.pt
 Backend/Python/FaceRecognition/ObjectDetection/__pycache__/ObjectDetection.cpython-311.pyc
 
 Daashboard_2.0/Dashboard/src/assets/Images_Record
+Backend/Python/FaceRecognition/bin
+Backend/Python/FaceRecognition/include
+Backend/Python/FaceRecognition/lib
+Backend/Python/FaceRecognition/lib64
+Backend/Python/FaceRecognition/pyvenv.cfg
+
+Backend/Python/PeopleCounter/bin
+Backend/Python/PeopleCounter/include
+Backend/Python/PeopleCounter/lib
+Backend/Python/PeopleCounter/lib64
+Backend/Python/PeopleCounter/pyvenv.cfg
