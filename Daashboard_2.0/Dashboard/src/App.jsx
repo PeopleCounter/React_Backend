@@ -3,7 +3,7 @@ import Navbar from "./assets/components/Navbar"
 import Home from "./assets/components/Home"
 import Login from "./assets/components/Login"
 import { useEffect, useState } from "react"
-import BootstrapErrors from "./assets/components/bootstrapErrors";
+import BootstrapErrors from "./assets/components/BootstrapErrors";
 // import Logout from "./assets/components/Logout"
 import LogDetails from "./assets/components/LogDetails"
 import Socket from "./assets/js/Socket"
