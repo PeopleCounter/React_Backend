@@ -1,10 +1,18 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import '../css/GuestEntries.css'
+import '../css/GuestEntries.css'    
+
 function GuestEntries() {
 
-    let [guests,set_guests] = useState({Name:[],number:[]}) 
+  
+
+    let [guests,set_guests] = useState({Name:[],number:[]})
+  
     useEffect(()=>{
+
+        // eslint-disable-next-line no-unused-vars
+     
+
         async function fetchGuest(){
 
             let res =  await fetch('http://localhost:3000/logs/getGuestUsers',{
@@ -29,7 +37,7 @@ function GuestEntries() {
                 }
             ))
 
-
+     
 
            
         }
@@ -38,8 +46,9 @@ function GuestEntries() {
     },[])
   return (
     <>
+        {guests.Name.length ==0  ? <div className="Message">No Entries yet !!</div> : 
        
-        <table>
+        <table id="Ok">
             <thead>
                 <tr>
                     <th>
@@ -53,7 +62,7 @@ function GuestEntries() {
             <tbody>
                 
                     {guests.Name.map((element,i)=>(
-                         <tr style={{height:"20px"}} key={i}>       
+                         <tr  key={i}>       
                                 <td >{element}</td>
                                 <td>{guests.number[i]}</td>
                         </tr>
@@ -66,6 +75,8 @@ function GuestEntries() {
                 
             </tbody>
         </table>
+       
+                    }
     </>
   )
 }

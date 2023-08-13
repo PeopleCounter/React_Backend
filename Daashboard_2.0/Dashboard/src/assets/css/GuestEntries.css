@@ -10,6 +10,7 @@ table{
     border-radius: 20px;
 }
 
+
 th{
     background-color: #6c7ae0;
     color: #fff;
@@ -20,6 +21,7 @@ th{
     font-size: larger;
     letter-spacing: 1px;
 }
+
 
 tr:nth-child(even){
     background-color: #f8f6ff;
@@ -36,10 +38,20 @@ th:last-child{
     
 }
 tr{
-    height: 20px;
+    height: 10%;
+}
+th{
+    height: 10%;
 }
 td{
 
     text-align: center;
 }
-    
+
+.Message{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+}

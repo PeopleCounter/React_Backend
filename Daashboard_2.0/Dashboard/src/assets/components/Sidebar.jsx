@@ -16,7 +16,17 @@ function Sidebar() {
                 <div className="feature" style={{marginTop:"7vh"}} >
                    <Link to={"/GuestEntries"}><i className="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Guest Entries</Link> 
                 </div>
+
+                <div className="feature" style={{marginTop:"7vh"}} >
+                   <Link to={"/LogDetails/Student"}><i className="fa fa-user-graduate" aria-hidden="true"></i>&nbsp;&nbsp;Student Entries</Link> 
+                </div>
+
+                <div className="feature" style={{marginTop:"7vh"}} >
+                   <Link to={"/LogDetails/Teacher"}><i className="fas fa-chalkboard-teacher" aria-hidden="true"></i>&nbsp;&nbsp;Teacher Entries</Link> 
+                </div>
             </div>
+
+            
             <Outlet/>
         </div>
 
