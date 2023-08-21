@@ -6,16 +6,19 @@ import { useEffect, useState } from "react"
 import BootstrapErrors from "./assets/components/BootstrapErrors";
 // import Logout from "./assets/components/Logout"
 import LogDetails from "./assets/components/LogDetails"
-import Socket from "./assets/js/Socket"
 import Sidebar from "./assets/components/Sidebar";
 import GuestEntries from "./assets/components/GuestEntries";
+import {io } from "socket.io-client"
 function App()
 {
+
+
+  const socket = io('http://localhost:4001');
   const [notifications,set_notifications] = useState({
     notification:null,
     message:null
   })
-
+  
   const[counts,set_counts] = useState({"in":0,"out":0})
   const[counts_face,set_counts_face] = useState({"student":0,"teacher":0,"unknown":0})
   useEffect(()=>
@@ -30,14 +33,14 @@ function App()
         set_counts_face(value)
       }
 
-      Socket.on("Update",check_counts)
-      Socket.on("Update_FaceDetection",check_counts_face)
+      socket.on("Update",check_counts)
+      socket.on("Update_FaceDetection",check_counts_face)
 
       return(
         ()=>{
           console.log("Switching off connection");
-          Socket.off("Update",check_counts)
-          Socket.off("Update_FaceDetection",check_counts_face)
+          socket.off("Update",check_counts)
+          socket.off("Update_FaceDetection",check_counts_face)
         }
       )
   },[]

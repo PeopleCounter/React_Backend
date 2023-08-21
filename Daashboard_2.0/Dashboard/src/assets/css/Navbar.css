@@ -3,6 +3,7 @@
 a{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 nav a{
     font-family: 'Inter', sans-serif;
