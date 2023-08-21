@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import '.././css/GuestEntries.css'
+// import '.././css/GuestEntries.css'
 function LogDetails()
 {
     const {id} = useParams()
@@ -89,7 +89,7 @@ function LogDetails()
     <>
   
     {Person.Name.length ==0  ? <div className="Message">No Entries yet !!</div> : 
-
+    <div className="oo">
     <table>
         <thead>
             <tr>
@@ -129,6 +129,7 @@ function LogDetails()
            
         </tbody>
     </table>
+    </div>
         
     }
   

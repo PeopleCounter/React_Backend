@@ -1,15 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 table{
-    position: relative;
+    position: absolute;
     top: 17%;
     width: 70%;
-    height: 70%;
+    max-height: 70%;
     box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
-    left: 15%;
+    left: 17%;
     border-collapse: collapse;
     border-radius: 20px;
+
 }
 
+.oo
+{
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 th{
     background-color: #6c7ae0;
@@ -20,6 +29,8 @@ th{
     font-display: swap;
     font-size: larger;
     letter-spacing: 1px;
+    height: 60px;
+    
 }
 
 
@@ -38,11 +49,9 @@ th:last-child{
     
 }
 tr{
-    height: 10%;
+    height: 70px;
 }
-th{
-    height: 10%;
-}
+
 td{
 
     text-align: center;

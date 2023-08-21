@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import '../css/GuestEntries.css'    
+// import '../css/GuestEntries.css'    
 
 function GuestEntries() {
 

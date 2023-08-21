@@ -7,7 +7,8 @@ import BootstrapErrors from "./assets/components/BootstrapErrors";
 // import Logout from "./assets/components/Logout"
 import LogDetails from "./assets/components/LogDetails"
 import Sidebar from "./assets/components/Sidebar";
-import GuestEntries from "./assets/components/GuestEntries";
+// import GuestEntries from "./assets/components/GuestEntries";
+import Table from "./assets/components/Table"
 import {io } from "socket.io-client"
 function App()
 {
@@ -56,7 +57,7 @@ function App()
             <Route element={<Sidebar/>}>
               <Route path="/Home" element={<Home counts = {counts} counts_face={counts_face}/>}/>
               <Route path="/LogDetails/:id" element={<LogDetails/>}/>
-              <Route path="/GuestEntries" element={<GuestEntries/>}/>
+              <Route path="/GuestEntries" element={<Table/>}/>
             
             </Route>
 
