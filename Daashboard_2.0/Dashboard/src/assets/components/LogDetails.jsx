@@ -10,7 +10,7 @@ function LogDetails()
     useEffect(()=>{
             async function non_ultra_plus(){
 
-                await fetch(`http://localhost:3000/logs/general/${id}`,{
+                await fetch(`https://hostedwebsitebackend-pqob.onrender.com/logs/general/${id}`,{
                 headers:{"Content-Type":"application/json"},
                 method:"GET"
             }).catch((err)=>{
@@ -50,7 +50,7 @@ function LogDetails()
         }
         let timr = setInterval(
         async ()=>{
-            await fetch(`http://localhost:3000/logs/general/${id}`,{
+            await fetch(`https://hostedwebsitebackend-pqob.onrender.com/logs/general/${id}`,{
                 headers:{"Content-Type":"application/json"},
                 method:"GET"
             }).catch((err)=>{

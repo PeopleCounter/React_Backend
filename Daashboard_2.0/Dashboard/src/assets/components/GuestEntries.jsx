@@ -15,7 +15,7 @@ function GuestEntries() {
 
         async function fetchGuest(){
 
-            let res =  await fetch('http://localhost:3000/logs/getGuestUsers',{
+            let res =  await fetch('https://hostedwebsitebackend-pqob.onrender.com/logs/getGuestUsers',{
                 headers:{"Content-Type":"application/json"},
                 method:"GET"
             }).then((res)=>{

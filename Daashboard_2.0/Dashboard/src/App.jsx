@@ -46,7 +46,7 @@ function App()
       // )
 
       async function fetch_data(){
-        let res = await fetch('http://localhost:3000/connection/faces',{
+        let res = await fetch('https://hostedwebsitebackend.onrender.com/connection/faces',{
           method:"GET",
           headers:{"Content-Type":"application/json"}
         })

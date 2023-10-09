@@ -6,7 +6,7 @@ function Navbar()
 {
     function logout()
     {
-        fetch("http://localhost:3000/auth/logout",
+        fetch("https://hostedwebsitebackend-pqob.onrender.com/auth/logout",
         {
             method : "POST",
             headers : {"Content-Type":"application/json"},

@@ -1,6 +1,5 @@
 import {useState,useEffect} from 'react'
 import { flexRender, useReactTable,getCoreRowModel,getPaginationRowModel } from '@tanstack/react-table'
-import MD from './MainData'
 import '../css/GuestEntries.css'
 import columns from './columns'
 
@@ -15,7 +14,7 @@ export default function Table() {
 
         async function fetchGuest(){
 
-            let res =  await fetch('http://localhost:3000/logs/getGuestUsers',{
+            let res =  await fetch('https://hostedwebsitebackend.onrender.com/logs/getGuestUsers',{
                 headers:{"Content-Type":"application/json"},
                 method:"GET"
             }).then((res)=>{

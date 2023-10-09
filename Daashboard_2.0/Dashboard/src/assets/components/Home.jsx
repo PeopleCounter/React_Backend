@@ -29,7 +29,7 @@ function Home(props)
         let padding = 50
         async function getDate(){
         let new_res = []
-        let result = await fetch('http://localhost:3000/dates/getDates',{
+        let result = await fetch('https://hostedwebsitebackend-pqob.onrender.com/dates/getDates',{
             headers:{"Content-Type":"application/json"},
             method:"GET",
         }).then(async(result)=>{
