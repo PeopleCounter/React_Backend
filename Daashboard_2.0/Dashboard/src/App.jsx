@@ -9,12 +9,12 @@ import LogDetails from "./assets/components/LogDetails"
 import Sidebar from "./assets/components/Sidebar";
 // import GuestEntries from "./assets/components/GuestEntries";
 import Table from "./assets/components/Table"
-import {io } from "socket.io-client"
+// import {io } from "socket.io-client"
 function App()
 {
 
 
-  const socket = io('http://localhost:4001');
+  // const socket = io('http://localhost:4001');
   const [notifications,set_notifications] = useState({
     notification:null,
     message:null
@@ -24,27 +24,60 @@ function App()
   const[counts_face,set_counts_face] = useState({"student":0,"teacher":0,"unknown":0})
   useEffect(()=>
   {
-      function check_counts(value)
-      {
-        set_counts(value)
+      // function check_counts(value)
+      // {
+      //   set_counts(value)
+      // }
+
+      // function check_counts_face(value)
+      // {
+      //   set_counts_face(value)
+      // }
+
+      // socket.on("Update",check_counts)
+      // socket.on("Update_FaceDetection",check_counts_face)
+
+      // return(
+      //   ()=>{
+      //     console.log("Switching off connection");
+      //     socket.off("Update",check_counts)
+      //     socket.off("Update_FaceDetection",check_counts_face)
+      //   }
+      // )
+
+      async function fetch_data(){
+        let res = await fetch('http://localhost:3000/connection/faces',{
+          method:"GET",
+          headers:{"Content-Type":"application/json"}
+        })
+        return await res.json()
       }
 
-      function check_counts_face(value)
+      
+
+      const myTimeout = setTimeout(async()=>
       {
-        set_counts_face(value)
-      }
+          let res = await fetch_data();
+          let teacher = res.teacher
+          let student = res.student
+          let unkown = res.unknown
+          let in_people = res.in
+          let out_people = res.out
+          set_counts_face((element)=>({
+              ...element,teacher:teacher,student:student,unknown:unkown
+          }));
 
-      socket.on("Update",check_counts)
-      socket.on("Update_FaceDetection",check_counts_face)
+          
+          set_counts((element)=>({
+            ...element,in:in_people,out:out_people
+        }));
 
-      return(
-        ()=>{
-          console.log("Switching off connection");
-          socket.off("Update",check_counts)
-          socket.off("Update_FaceDetection",check_counts_face)
-        }
-      )
-  },[]
+      },2000)
+
+      return (()=>{
+        clearTimeout(myTimeout)
+      })
+  },[counts,counts_face]
   )
 
   return(
