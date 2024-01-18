@@ -54,6 +54,13 @@ app.get('/dates/getDates',async(req,res)=>{
     return res.status(200).json({result:resut})
 })
 
+app.get('/Cron-Check',async(req,res)=>{
+    let date = new Date()
+    let date_month = String(date.getDate())+"-"+String(date.getMonth())
+    Count.insertMany({date:date_month,in:0,out:0,busiest_hour:"",student:0,teacher:0,unknown:0})
+
+})
+
 app.get('/logs/general/:id',(req,res)=>{
     const file_path = "e:/Desktop/RaspberryPi/Dashboard/React_Backend/Backend/Python/FaceRecognition/Record.csv"
     const results = []
@@ -92,6 +99,7 @@ app.get('/logs/CSV',(req,res)=>{
     })
        
 })
+
 app.get('/calculate/busiest_hour',async(req,res)=>{
     let date = new Date()
     let date_month = String(date.getDate())+"-"+String(date.getMonth())

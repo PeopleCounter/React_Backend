@@ -102,8 +102,8 @@ def realtime():
             else:
                 return False
 
-    # cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture("/Users/tp/Desktop/GitHub/React_Backend/Backend/Python/PeopleCounter/TestVideo.avi")
+    cap = cv2.VideoCapture(0)
+    #cap = cv2.VideoCapture("/Users/tp/Desktop/GitHub/React_Backend/Backend/Python/PeopleCounter/TestVideo.avi")
 
     w = cap.get(3)
     h = cap.get(4)

@@ -22,7 +22,7 @@ def  postCounts():
 
         if(Prev_Logs["in"] != Logs["in"] or Prev_Logs["out"] != Logs["out"]):
             requests.post(
-                "http://localhost:3000/log/flow",json=
+                "https://hostedwebsitebackend-pqob.onrender.com/log/flow",json=
                 {
                     "in":Logs["in"],
                     "out":Logs["out"]
@@ -106,9 +106,9 @@ def Test():
     count_down = 0
     state = 0
 
-    # cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture("TestVideo.avi")
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    cap = cv2.VideoCapture(0)
+   # cap = cv2.VideoCapture("TestVideo.avi")
+    # fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
     w = cap.get(3)
     h = cap.get(4)
