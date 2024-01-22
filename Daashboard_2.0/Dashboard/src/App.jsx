@@ -20,7 +20,7 @@ function App()
     message:null
   })
   
-  const[counts,set_counts] = useState({"in":0,"out":0})
+  const[counts,set_counts,busiest_day,busiest_hour] = useState({"in":0,"out":0,"busiest_hour":0,"busiest_day":""})
   const[counts_face,set_counts_face] = useState({"student":0,"teacher":0,"unknown":0})
   useEffect(()=>
   {
@@ -53,8 +53,6 @@ function App()
         return await res.json()
       }
 
-      
-
       const myTimeout = setTimeout(async()=>
       {
           let res = await fetch_data();
@@ -63,13 +61,14 @@ function App()
           let unkown = res.unknown
           let in_people = res.in
           let out_people = res.out
+          let busiest_hour = res.busiest_hour
+          let busiest_day = res.busiest_day
           set_counts_face((element)=>({
               ...element,teacher:teacher,student:student,unknown:unkown
           }));
 
-          
           set_counts((element)=>({
-            ...element,in:in_people,out:out_people
+            ...element,in:in_people,out:out_people,busiest_day:busiest_day,busiest_hour:busiest_hour
         }));
 
       },2000)
