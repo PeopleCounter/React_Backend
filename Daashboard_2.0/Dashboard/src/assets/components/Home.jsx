@@ -29,7 +29,7 @@ function Home(props)
         let padding = 50
         async function getDate(){
         let new_res = []
-        let result = await fetch('https://hostedwebsitebackend-pqob.onrender.com/dates/getDates',{
+        let result = await fetch('http://localhost:3000/dates/getDates',{
             headers:{"Content-Type":"application/json"},
             method:"GET",
         }).then(async(result)=>{
@@ -49,7 +49,7 @@ function Home(props)
     }
     getDate()
     
-    },[])
+    },[props.counts.in])
 
     
 
@@ -157,7 +157,7 @@ function Home(props)
                         </div>
 
                         <div className="hour">
-                            <p>Thursday</p>
+                            <p>{props.counts.busiest_day}</p>
                         </div>
                     </div>
                               

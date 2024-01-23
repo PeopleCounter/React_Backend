@@ -11,7 +11,6 @@ import { Server } from "socket.io";
 import fs from 'fs'
 import csv from 'fast-csv'
 import GuestEntries from "./DB_Schema/GuestEntries.mjs";
-
 CreateDocument()
 const DATE_MAPPING = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 // const WebSocket = new Server(4001,{
@@ -38,28 +37,64 @@ app.get("/connection/faces",async(req,res)=>{
     console.log(result)
     // socket.emit("Update",{in:result.in,out:result.out})
     // socket.emit("Update_FaceDetection",{teacher:result.teacher,student:result.student,unknown:result.unknown})
-    return res.json({teacher:result.teacher,student:result.student,unknown:result.unknown,in:result.in,out:result.out}).status(200)
+    if(result){
+        return res.json({teacher:result.teacher,student:result.student,unknown:result.unknown,in:result.in,out:result.out,busiest_day:result.busiest_day,busiest_hour:result.busiest_hour}).status(200)
+    }else{
+
+        return res.json({teacher:0,student:0,unknown:0,in:0,out:0,busiest_day:"",busiest_hour:""}).status(200)
+    }
 })
 
 
 app.get('/dates/getDates',async(req,res)=>{
     let resut = await Count.find()
-    resut.forEach((element)=>{
-        let build_date = element['date'].split('-')
-        build_date = "2023-"+ String(parseInt(build_date[1])+1) +"-"+build_date[0]
-        let cur_date = new Date(build_date)
-        element['date'] = DATE_MAPPING [cur_date.getDay()]
+    let date = new Date()
+    let date_now = date.getDate()
+    let check_point
+    if(date_now - 7 >=0) {
+       check_point = date_now - 7 
+    }
+    else{
+        check_point = 1
+    }
 
-    })
+    resut = resut.filter(item=>check_point<parseInt(item['date'].split('-')[0]) && parseInt(item['date'].split('-')[0])<=date_now)
+    console.log(resut);
+    resut.sort((a,b)=>parseInt(a['date'].split('-')[0]) - parseInt(b['date'].split('-')[0]))
+    
+    resut.forEach((element)=>{
+        
+        let build_date = element['date'].split('-')
+                
+                build_date = "2023-"+ String(parseInt(build_date[1])+1) +"-"+build_date[0]
+                let cur_date = new Date(build_date)
+                element['date'] = DATE_MAPPING [cur_date.getDay()];
+        }
+        )
     return res.status(200).json({result:resut})
 })
 
 app.get('/Cron-Check',async(req,res)=>{
     let date = new Date()
     let date_month = String(date.getDate())+"-"+String(date.getMonth())
-    Count.insertMany({date:date_month,in:0,out:0,busiest_hour:"",student:0,teacher:0,unknown:0})
-    return res.json({date:date_month,in:0,out:0,busiest_hour:"",student:0,teacher:0,unknown:0}).status(200)
+    let resut = await Count.find()
+    let date_now = date.getDate()
+    let check_point
+    if(date_now - 7 >=0) {
+       check_point = date_now - 7 
+    }
+    else{
+        check_point = 1
+    }
 
+    resut = resut.filter(item=>check_point<parseInt(item['date'].split('-')[0]) && parseInt(item['date'].split('-')[0])<=date_now)
+    resut.sort((a,b)=>b['in'] - a['in'])
+                let build_date = resut[0].date.split('-')
+                build_date = "2023-"+ String(parseInt(build_date[1])+1) +"-"+build_date[0]
+                let cur_date = new Date(build_date)
+                resut['date'] = DATE_MAPPING [cur_date.getDay()];
+        Count.insertMany({date:date_month,in:0,out:0,busiest_hour:"",busiest_day:resut.date,student:0,teacher:0,unknown:0})
+    return res.json({date:date_month,in:0,out:0,busiest_hour:"",busiest_day:resut.date,student:0,teacher:0,unknown:0}).status(200)
 })
 
 app.get('/logs/general/:id',(req,res)=>{
@@ -85,8 +120,6 @@ app.get('/logs/general/:id',(req,res)=>{
     })
        
 })
-
-
 app.get('/logs/CSV',(req,res)=>{
     const file_path = "e:/Desktop/RaspberryPi/Dashboard/React_Backend/Backend/Python/FaceRecognition/Record.csv"
     const results = []
